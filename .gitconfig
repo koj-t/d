@@ -1,0 +1,27 @@
+[user]
+	name = Taihei Kojima
+	email = hogehoge@hogehoge.com
+[color]
+	ui = auto
+[alias]
+    co = checkout
+    cm = commit
+    st = status
+    br = branch
+    rb = rebase
+    mg = merge
+    sh = stash
+    rs = reset
+    cl = clone
+    ft = fetch
+	tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+[core]
+    excludesfile = ~/.global_gitignore
+[merge]
+    ff = false
+[fetch]
+	prune = true
+[branch]
+	autosetuprebase = always
+[push]
+	default = matching

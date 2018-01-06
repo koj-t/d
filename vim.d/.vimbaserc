@@ -1,0 +1,199 @@
+set nocompatible
+filetype off
+
+" 画面表示の設定
+set number         " 行番号を表示する
+set ruler
+set cursorline     " カーソル行の背景色を変える
+set cursorcolumn   " カーソル位置のカラムの背景色を変える
+set laststatus=2   " ステータス行を常に表示
+set cmdheight=2    " メッセージ表示欄を2行確保
+set showmatch      " 対応する括弧を強調表示
+set helpheight=999 " ヘルプを画面いっぱいに開く
+set list           " 不可視文字を表示
+syntax on
+" 不可視文字の表示記号指定
+" set listchars=tab:?\ ,eol:?,extends:?,precedes:?,trail:_
+set listchars=tab:?\ ,extends:?,precedes:?,trail:_
+
+" カーソル移動関連の設定
+set backspace=indent,eol,start " Backspaceキーの影響範囲に制限を設けない
+set whichwrap=b,s,h,l,<,>,[,]  " 行頭行末の左右移動で行をまたぐ
+set scrolloff=8                " 上下8行の視界を確保
+set sidescrolloff=16           " 左右スクロール時の視界を確保
+set sidescroll=1               " 左右スクロールは一文字づつ行う
+
+" ファイル処理関連の設定
+set confirm    " 保存されていないファイルがあるときは終了前に保存確認
+set hidden     " 保存されていないファイルがあるときでも別のファイルを開くことが出来る
+set autoread   "外部でファイルに変更がされた場合は読みなおす
+set nobackup   " ファイル保存時にバックアップファイルを作らない
+set noswapfile " ファイル編集中にスワップファイルを作らない
+
+" 検索/置換の設定
+set hlsearch   " 検索文字列をハイライトする
+set incsearch  " インクリメンタルサーチを行う
+set ignorecase " 大文字と小文字を区別しない
+set smartcase  " 大文字と小文字が混在した言葉で検索を行った場合に限り、大文字と小文字を区別する
+set wrapscan   " 最後尾まで検索を終えたら次の検索で先頭に移る
+set gdefault   " 置換の時 g オプションをデフォルトで有効にする
+
+" タブ/インデントの設定
+set expandtab     " タブ入力を複数の空白入力に置き換える
+set tabstop=4     " 画面上でタブ文字が占める幅
+set shiftwidth=4  " 自動インデントでずれる幅
+set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set autoindent    " 改行時に前の行のインデントを継続する
+set smartindent   " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
+set nrformats-=octal
+
+set foldenable
+set foldmethod=indent
+set foldlevel=10
+set foldnestmax=10
+set foldcolumn=2
+
+" 動作環境との統合関連の設定
+" OSのクリップボードをレジスタ指定無しで Yank, Put 出来るようにする
+set clipboard=unnamed,unnamedplus
+"ヤンクした文字がクリップボードに保存される
+set clipboard+=unnamed
+nnoremap -p "0p
+nnoremap -P "0P
+" マウスの入力を受け付ける
+set mouse=a
+" Windows でもパスの区切り文字を / にする
+set shellslash
+" インサートモードから抜けると自動的にIMEをオフにする
+set iminsert=0
+
+set t_ut=
+set t_Co=256
+
+" コマンドライン設定
+" コマンドラインモードでTABキーによるファイル名補完を有効にする
+set wildmenu wildmode=list:longest,full
+" コマンドラインの履歴を10000件保存する
+set history=10000
+
+" ビープの設定
+set visualbell t_vb=
+set noerrorbells "エラーメッセージの表示時にビープを鳴らさない
+
+" For Python
+autocmd FileType python setl nocindent
+autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+" インサートモードのjjでEsc
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-w> <ESC>:w<CR>i
+
+"IME OFF
+set imdisable
+set iminsert=0
+set imsearch=0
+
+autocmd FileType * setlocal formatoptions-=ro
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))|w
+
+"Moving Mapping
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+"Window moving
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+
+"" F2で前のバッファ
+nnoremap <F2> <ESC>:bp<CR>
+"" F3で次のバッファ
+nnoremap <F3> <ESC>:bn<CR>
+"" F4でバッファを削除する
+"nnoremap <F4> <ESC>:bnext \| bdelete #<CR>
+"command! Bw :bnext \| bdelete #
+
+" insert mode での移動
+inoremap <C-e> <END>
+inoremap <C-a> <HOME>
+
+" インサートモード移動（Ctrl押す）
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+" <Space>j, <space>kで画面送り
+noremap <Space>j <C-f>
+noremap <Space>k <C-b>
+
+" 行頭，行末
+noremap <Space>h ^
+noremap <Space>l $
+
+" 行末ヤンク
+nnoremap Y y$
+
+nnoremap ga ggVG
+nnoremap <F8> yyp
+imap <F9> <nop>
+set pastetoggle=<F9>
+inoremap <F8> <Esc>:set paste<CR>i
+
+nnoremap <Space>w :w<CR>
+nnoremap <Space>qq :q<CR>
+nnoremap <Space>ss :wq<CR>
+
+" Tabs
+" nnoremap <Space>t t
+" nnoremap <Space>T T
+" nnoremap t <Nop>
+nnoremap <silent> <Space>c :<C-u>tabnew<CR>:tabmove<CR>
+nnoremap <silent> <Space>tk :<C-u>tabclose<CR>
+nnoremap <silent> <Space>n :<C-u>tabnext<CR>
+nnoremap <silent> <Space>p :<C-u>tabprevious<CR>
+
+" 選択部分を検索
+vnoremap * "zy:let @/ = @z<CR>n
+
+autocmd QuickFixCmdPost *grep* cwindow
+
+"独自色設定
+autocmd ColorScheme * highlight Pmenu cterm=none
+autocmd ColorScheme * highlight Normal ctermbg=black
+autocmd ColorScheme * highlight LineNr ctermfg=yellow
+
+if &term =~ "xterm"
+    let &t_ti .= "\e[?2004h"
+    let &t_te .= "\e[?2004l"
+    let &pastetoggle = "\e[201~"
+    function XTermPasteBegin(ret)
+        set paste
+        return a:ret
+    endfunction
+    noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+    cnoremap <special> <Esc>[200~ <nop>
+    cnoremap <special> <Esc>[201~ <nop>
+endif
+
+autocmd BufWritePre * :%s/\s\+$//ge
+
+set backupskip=/tmp/*,/private/tmp/*
+
+nnoremap <silent> [[ <C-t>
+nnoremap <silent> ]] <C-]>
+nnoremap <silent> ]w <C-w>]
+nnoremap <silent> ]g g,<C-]>
+
+au BufNewFile,BufRead .vim* setf vim
+
+autocmd QuickFixCmdPre * setlocal wildignore=*/node_modules/*,*.so,*.jpg,*.png,*.d,*.o
+autocmd QuickFixCmdPost * setlocal wildignore=
+au   BufEnter *   execute ":lcd " . expand("%:p:h")
+
+colorscheme desert

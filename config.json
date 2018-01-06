@@ -1,0 +1,12 @@
+{
+    "KeyMap": {
+        "Pgdn": "peco.ToggleSelectionAndSelectNext",
+        "ArrowRight": "peco.ScrollRight",
+        "ArrowLeft": "peco.ScrollLeft"
+    },
+    "Style": {
+        "Selected": ["underline", "on_cyan", "black"],
+        "Query": ["yellow"],
+        "Matched": ["red", "on_default"]
+    }
+}

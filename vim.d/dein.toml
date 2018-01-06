@@ -1,0 +1,84 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
+repo = 'scrooloose/syntastic'
+hook_add = '''
+    let g:syntastic_check_on_open=0
+    let g:syntastic_check_on_save=1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_auto_loc_list=1
+    let g:syntastic_cpp_check_header = 1
+'''
+
+[[plugins]]
+repo = "tyru/caw.vim"
+hook_add = '''
+    nmap <C-@> <Plug>(caw:hatpos:toggle)
+    vmap <C-@> <Plug>(caw:hatpos:toggle)
+'''
+
+[[plugins]]
+repo = 'othree/html5.vim'
+
+[[plugins]]
+repo = 'tpope/vim-sleuth'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+    let g:quickrun_config = {}
+    let g:quickrun_config['markdown'] = {
+                \   'outputter': 'browser'
+                \ }
+    set splitright
+    let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
+    let g:quickrun_config._={ 'runner':'vimproc',
+    \       "runner/vimproc/updatetime" : 10,
+    \       "outputter/buffer/close_on_empty" : 1,
+    \ }
+
+"quickrunの実行ショートカット
+nnoremap <C-P> :QuickRun<CR>
+
+'''
+[[plugins]]
+repo = 'Lokaltog/vim-easymotion'
+hook_add = '''
+let g:EasyMotion_do_mapping = 0 "Disable default mappings
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+map <Space>l <Plug>(easymotion-lineforward)
+map <Space>j <Plug>(easymotion-j)
+map <Space>k <Plug>(easymotion-k)
+map <Space>h <Plug>(easymotion-linebackward)
+
+nmap g/ <Plug>(easymotion-sn)
+xmap g/ <Plug>(easymotion-sn)
+omap g/ <Plug>(easymotion-tn)
+map gn <Plug>(easymotion-repeat)
+
+
+nmap f <Plug>(easymotion-s2)
+'''
+
